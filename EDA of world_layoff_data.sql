@@ -1,4 +1,5 @@
-
+-- Now i'm going in blindly here, I'll perform some Exploratory Data Analysis on this CLeaned Dataset based on what I feel curious about
+-- Lets start
 
 SELECT *
 FROM layoffs_staging2
