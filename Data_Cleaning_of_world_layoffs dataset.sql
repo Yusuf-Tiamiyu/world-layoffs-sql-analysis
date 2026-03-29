@@ -1,4 +1,4 @@
--- SQL Project - Data Cleaning
+-- SQL Project - Data Cleaning of World Layoffs Project
 
 -- https://www.kaggle.com/datasets/swaptr/layoffs-2022
 
@@ -82,7 +82,7 @@ WHERE row_num >1;
 SELECT * 
 FROM layoffs_staging2;
 
--- looking at industry it looks like we have some null and empty rows, let's take a look at these
+-- looking at industry it looks like there's some null and empty rows, let me take a look at these
 SELECT DISTINCT industry
 FROM layoffs_staging2
 ORDER BY industry;
@@ -93,7 +93,7 @@ WHERE industry IS NULL
 OR industry = ''
 ORDER BY industry;
 
--- let me  take a look at these
+-- let me take a look at these
 SELECT *
 FROM layoffs_staging2
 WHERE company LIKE 'Bally%';
@@ -120,7 +120,7 @@ WHERE industry IS NULL
 OR industry = ''
 ORDER BY industry;
 
--- now we need to populate those nulls if possible
+-- now I need to populate those nulls if possible
 
 UPDATE layoffs_staging2 t1
 JOIN layoffs_staging2 t2
@@ -138,7 +138,7 @@ ORDER BY industry;
 
 -- ---------------------------------------------------
 
--- I also noticed the Crypto has multiple different variations. I need to standardize that - let's say all to Crypto
+-- I also noticed the Crypto has multiple different variations. I need to standardize that - let me say all to Crypto
 SELECT DISTINCT industry
 FROM layoffs_staging2
 ORDER BY industry;
@@ -153,12 +153,12 @@ FROM layoffs_staging2
 ORDER BY industry;
 
 -- --------------------------------------------------
--- we also need to look at 
+-- I also need to look at 
 
 SELECT *
 FROM layoffs_staging2;
 
--- everything looks good except apparently I have some "United States" and some "United States." with a period at the end. Let's standardize this.
+-- everything looks good except apparently I have some "United States" and some "United States." with a period at the end. Let me standardize this.
 SELECT DISTINCT country
 FROM layoffs_staging2
 ORDER BY country;
@@ -172,7 +172,7 @@ FROM world_layoffs.layoffs_staging2
 ORDER BY country;
 
 
--- Let's also fix the date columns:
+-- I'll also fix the date columns:
 SELECT *
 FROM layoffs_staging2;
 
@@ -180,7 +180,7 @@ FROM layoffs_staging2;
 UPDATE layoffs_staging2
 SET `date` = STR_TO_DATE(`date`, '%m/%d/%Y');
 
--- now we can convert the data type properly
+-- now I can convert the data type properly
 ALTER TABLE layoffs_staging2
 MODIFY COLUMN `date` DATE;
 
@@ -198,9 +198,7 @@ FROM world_layoffs.layoffs_staging2;
 -- so there isn't anything I want to change with the null values
 
 
-
-
--- 4. remove any columns and rows we need to
+-- 4. remove any columns and rows that are unnecessary fpr the EDA phase
 
 SELECT *
 FROM layoffs_staging2
@@ -212,7 +210,7 @@ FROM layoffs_staging2
 WHERE total_laid_off IS NULL
 AND percentage_laid_off IS NULL;
 
--- Delete Useless data we can't really use
+-- I'll delete the useless data I can't really use
 DELETE FROM layoffs_staging2
 WHERE total_laid_off IS NULL
 AND percentage_laid_off IS NULL;
